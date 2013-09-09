@@ -430,6 +430,15 @@ class Entity extends Source
             //Setting the representative repository for entity retrieving
             $row->setRepository($repository);
 
+            $ids = $this->ormMetadata->getIdentifier();
+            $identifier = null;
+
+            if(count($ids) == 1){
+                $identifier = $ids[0];
+            }    
+
+            $row->setPrimaryField($identifier);
+
             //call overridden prepareRow or associated closure
             if (($modifiedRow = $this->prepareRow($row)) != null) {
                 $result->addRow($modifiedRow);
